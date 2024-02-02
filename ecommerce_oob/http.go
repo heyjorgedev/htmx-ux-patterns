@@ -38,6 +38,10 @@ func HandleAddToCart(w http.ResponseWriter, r *http.Request) {
 	currentItems = currentItems + 1
 
 	w.Header().Set("Content-Type", "text/html; charset=utf-8")
+
+	// Will confetti be displayed?
+	w.Header().Set("HX-Trigger", "confetti")
+
 	w.WriteHeader(http.StatusCreated)
 
 	// The form doesn't need to be rendered if you have hx-swap="none"
