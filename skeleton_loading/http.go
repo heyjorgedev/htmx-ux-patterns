@@ -38,7 +38,8 @@ func HandleSubscribers(w http.ResponseWriter, r *http.Request) {
 		Label: "Subscribers",
 		Value: "10,897",
 	}
-
+	w.Header().Set("Content-Type", "text/html; charset=utf-8")
+	w.WriteHeader(http.StatusOK)
 	t.ExecuteTemplate(w, "stats", s)
 }
 
@@ -49,6 +50,8 @@ func HandleAverageClicks(w http.ResponseWriter, r *http.Request) {
 		Value: "25.10%",
 	}
 
+	w.Header().Set("Content-Type", "text/html; charset=utf-8")
+	w.WriteHeader(http.StatusOK)
 	t.ExecuteTemplate(w, "stats", s)
 }
 
@@ -59,5 +62,7 @@ func HandleOpenRate(w http.ResponseWriter, r *http.Request) {
 		Value: "32.17%",
 	}
 
+	w.Header().Set("Content-Type", "text/html; charset=utf-8")
+	w.WriteHeader(http.StatusOK)
 	t.ExecuteTemplate(w, "stats", s)
 }
