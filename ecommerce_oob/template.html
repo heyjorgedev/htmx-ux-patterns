@@ -19,14 +19,14 @@
         }
     </style>
 </head>
-<body class="h-full flex flex-col justify-center">
+<body class="h-full">
 <div class="relative" role="dialog" aria-modal="true">
     <div class="w-screen overflow-y-auto">
         <div class="flex min-h-full items-stretch justify-center text-center md:items-center md:px-2 lg:px-4">
             <span class="hidden md:inline-block md:h-screen md:align-middle" aria-hidden="true">&#8203;</span>
 
-            <div class="grid w-full transform text-left text-base transition md:my-8 md:max-w-2xl md:px-4 lg:max-w-4xl">
-                <div class="relative flex w-full items-center overflow-hidden bg-white px-4 pb-8 pt-14 border rounded-lg sm:px-6 sm:pt-8 md:p-6 lg:p-8">
+            <div class="flex w-full transform text-left text-base transition md:my-8 md:max-w-2xl md:px-4 lg:max-w-4xl">
+                <div class="relative flex w-full items-center overflow-hidden bg-white px-4 pb-8 pt-14 border sm:rounded-lg sm:px-6 sm:pt-8 md:p-6 lg:p-8">
                     <div class="grid w-full grid-cols-1 items-start gap-x-6 gap-y-8 sm:grid-cols-12 lg:gap-x-8">
                         <div class="aspect-h-3 aspect-w-2 overflow-hidden rounded-lg bg-gray-100 sm:col-span-4 lg:col-span-5">
                             <img src="/public/img/htmx_hoodie.png" alt="htmx hoodie" class="object-cover object-center">
@@ -43,13 +43,12 @@
                             <section aria-labelledby="options-heading" class="mt-8">
                                 <h3 id="options-heading" class="sr-only">Product options</h3>
                                 {{ template "form" }}
+                                <div class="text-center pt-5">
+                                    <a href="https://github.com/heyjorgedev/htmx-ux-patterns/tree/main/ecommerce_oob" target="_blank" class="text-blue-500 text-xs hover:underline">View on GitHub</a>
+                                </div>
                             </section>
                         </div>
                     </div>
-                </div>
-
-                <div class="text-center py-5">
-                    <a href="https://github.com/heyjorgedev/htmx-ux-patterns/tree/main/ecommerce_oob" target="_blank" class="text-blue-500 text-xs hover:underline">View on GitHub</a>
                 </div>
             </div>
         </div>
