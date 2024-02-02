@@ -13,12 +13,7 @@ var fs embed.FS
 var t *template.Template
 
 func init() {
-	tt, err := template.ParseFS(fs, "template.html")
-	if err != nil {
-		panic(err)
-	}
-
-	t = tt
+	t = template.Must(template.ParseFS(fs, "template.html"))
 }
 
 func RegisterRoutes(r chi.Router) {
