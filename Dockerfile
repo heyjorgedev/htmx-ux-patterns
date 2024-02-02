@@ -13,6 +13,7 @@ WORKDIR /app
 RUN apk --no-cache add ca-certificates tzdata
 
 COPY --from=build /app/htmx_patterns .
+COPY public /app/public
 
 # Set the entrypoint command
 ENTRYPOINT ["/app/htmx_patterns"]

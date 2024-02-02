@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html class="h-full bg-gray-50">
+<head>
+    <title>HTMX - Ecommerce OOB</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/htmx.org@1.9.10" integrity="sha384-D1Kt99CQMDuVetoL1lrYwg5t+9QdHe7NLX/SoJYkXDFfX37iInKRy5xLSi8nO7UC" crossorigin="anonymous"></script>
+    <style>
+        .htmx-indicator{
+            opacity:0;
+            transition: opacity 300ms ease-in-out;
+        }
+        .htmx-request .htmx-indicator{
+            opacity:1
+        }
+        .htmx-request.htmx-indicator{
+            opacity:1
+        }
+    </style>
+</head>
+<body class="h-full flex flex-col justify-center">
+<div class="relative" role="dialog" aria-modal="true">
+    <div class="w-screen overflow-y-auto">
+        <div class="flex min-h-full items-stretch justify-center text-center md:items-center md:px-2 lg:px-4">
+            <span class="hidden md:inline-block md:h-screen md:align-middle" aria-hidden="true">&#8203;</span>
+
+            <div class="grid w-full transform text-left text-base transition md:my-8 md:max-w-2xl md:px-4 lg:max-w-4xl">
+                <div class="relative flex w-full items-center overflow-hidden bg-white px-4 pb-8 pt-14 border rounded-lg sm:px-6 sm:pt-8 md:p-6 lg:p-8">
+                    <div class="grid w-full grid-cols-1 items-start gap-x-6 gap-y-8 sm:grid-cols-12 lg:gap-x-8">
+                        <div class="aspect-h-3 aspect-w-2 overflow-hidden rounded-lg bg-gray-100 sm:col-span-4 lg:col-span-5">
+                            <img src="/public/img/htmx_hoodie.png" alt="htmx hoodie" class="object-cover object-center">
+                        </div>
+                        <div class="sm:col-span-8 lg:col-span-7">
+                            <h2 class="text-xl font-medium text-gray-900 sm:pr-12">CEO of htmx hoodie</h2>
+
+                            <section aria-labelledby="information-heading" class="mt-1">
+                                <h3 id="information-heading" class="sr-only">Product information</h3>
+
+                                <p class="font-medium text-gray-900">€42.15</p>
+                            </section>
+
+                            <section aria-labelledby="options-heading" class="mt-8">
+                                <h3 id="options-heading" class="sr-only">Product options</h3>
+                                {{ template "form" }}
+                            </section>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="text-center py-5">
+                    <a href="https://github.com/heyjorgedev/htmx-ux-patterns/tree/main/ecommerce_oob" target="_blank" class="text-blue-500 text-xs hover:underline">View on GitHub</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{{ template "cart" .CartItems }}
+
+</body>
+</html>
+
+{{ define "cart" }}
+<div id="cart" class="fixed top-0 right-0 p-8" hx-swap-oob="true">
+    <div class="p-4 bg-white border rounded-xl flex items-center space-x-2 shadow-lg sm:shadow-none">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 0 0-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 0 0-16.536-1.84M7.5 14.25 5.106 5.272M6 20.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Zm12.75 0a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z" />
+        </svg>
+        <div><span class="font-bold">{{ . }}</span> item(s) in the cart</div>
+    </div>
+</div>
+{{ end }}
+
+{{ define "form" }}
+<form hx-post="/ecommerce-oob/add-to-cart" hx-swap="outerHTML" hx-indicator="#spinner">
+    <!-- Color picker -->
+    <div>
+        <h4 class="text-sm font-medium text-gray-900">Color</h4>
+
+        <fieldset class="mt-2">
+            <legend class="sr-only">Choose a color</legend>
+            <div class="flex items-center space-x-3">
+                <label class="relative -m-0.5 flex cursor-pointer items-center justify-center rounded-full p-0.5 focus:outline-none ring-gray-900 ring ring-offset-1">
+                    <input type="radio" name="color-choice" value="Black" class="sr-only" aria-labelledby="color-choice-0-label">
+                    <span id="color-choice-0-label" class="sr-only">Black</span>
+                    <span aria-hidden="true" class="h-8 w-8 bg-gray-900 rounded-full border border-black border-opacity-10"></span>
+                </label>
+                <label class="relative -m-0.5 flex cursor-pointer items-center justify-center rounded-full p-0.5 focus:outline-none ring-gray-400">
+                    <input type="radio" name="color-choice" value="Heather Grey" class="sr-only" aria-labelledby="color-choice-1-label">
+                    <span id="color-choice-1-label" class="sr-only">Heather Grey</span>
+                    <span aria-hidden="true" class="h-8 w-8 bg-gray-400 rounded-full border border-black border-opacity-10"></span>
+                </label>
+            </div>
+        </fieldset>
+    </div>
+
+    <!-- Size picker -->
+    <div class="mt-8">
+        <div class="flex items-center justify-between">
+            <h4 class="text-sm font-medium text-gray-900">Size</h4>
+        </div>
+
+        <fieldset class="mt-2">
+            <legend class="sr-only">Choose a size</legend>
+            <div class="grid grid-cols-7 gap-2">
+                <label class="flex items-center justify-center rounded-md border py-3 px-3 text-sm font-medium uppercase sm:flex-1 cursor-pointer focus:outline-none">
+                    <input type="radio" name="size-choice" value="XXS" class="sr-only" aria-labelledby="size-choice-0-label">
+                    <span id="size-choice-0-label">XXS</span>
+                </label>
+                <label class="flex items-center justify-center rounded-md border py-3 px-3 text-sm font-medium uppercase sm:flex-1 cursor-pointer focus:outline-none">
+                    <input type="radio" name="size-choice" value="XS" class="sr-only" aria-labelledby="size-choice-1-label">
+                    <span id="size-choice-1-label">XS</span>
+                </label>
+                <label class="flex items-center justify-center rounded-md border py-3 px-3 text-sm font-medium uppercase sm:flex-1 cursor-pointer focus:outline-none">
+                    <input type="radio" name="size-choice" value="S" class="sr-only" aria-labelledby="size-choice-2-label">
+                    <span id="size-choice-2-label">S</span>
+                </label>
+                <label class="flex items-center justify-center rounded-md border py-3 px-3 text-sm font-medium uppercase sm:flex-1 cursor-pointer focus:outline-none ring-2 ring-blue-500 ring-offset-2 border-transparent bg-blue-600 text-white hover:bg-blue-700">
+                    <input type="radio" name="size-choice" value="M" class="sr-only" aria-labelledby="size-choice-3-label">
+                    <span id="size-choice-3-label">M</span>
+                </label>
+                <label class="flex items-center justify-center rounded-md border py-3 px-3 text-sm font-medium uppercase sm:flex-1 cursor-pointer focus:outline-none">
+                    <input type="radio" name="size-choice" value="L" class="sr-only" aria-labelledby="size-choice-4-label">
+                    <span id="size-choice-4-label">L</span>
+                </label>
+                <label class="flex items-center justify-center rounded-md border py-3 px-3 text-sm font-medium uppercase sm:flex-1 cursor-pointer focus:outline-none">
+                    <input type="radio" name="size-choice" value="XL" class="sr-only" aria-labelledby="size-choice-5-label">
+                    <span id="size-choice-5-label">XL</span>
+                </label>
+                <label class="flex items-center justify-center rounded-md border py-3 px-3 text-sm font-medium uppercase sm:flex-1 cursor-not-allowed opacity-25">
+                    <input type="radio" name="size-choice" value="XXL" disabled class="sr-only" aria-labelledby="size-choice-6-label">
+                    <span id="size-choice-6-label">XXL</span>
+                </label>
+            </div>
+        </fieldset>
+    </div>
+
+    <div class="mt-8 space-y-2">
+        <div class="flex justify-center">
+            <svg class="select-none w-auto h-32 sm:h-28" version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 110.85654781262451 91.24788218768379" width="221.71309562524903" height="182.49576437536757">
+                <defs>
+                    <style class="style-fonts">
+                        @font-face {
+                            font-family: "Virgil";
+                            src: url("https://excalidraw.com/Virgil.woff2");
+                        }
+                        @font-face {
+                            font-family: "Cascadia";
+                            src: url("https://excalidraw.com/Cascadia.woff2");
+                        }
+                        @font-face {
+                            font-family: "Assistant";
+                            src: url("https://excalidraw.com/Assistant-Regular.woff2");
+                        }
+                    </style>
+
+                </defs>
+                <rect x="0" y="0" width="110.85654781262451" height="91.24788218768379" fill="#ffffff"></rect><g mask="url(#mask-CzY3RU3KDQFXo8UbenY3W)" stroke-linecap="round"><g transform="translate(10.062323286896572 9.887381784403715) rotate(0 30.043654204251993 34.97726846561801)"><path d="M0.92 0.76 C9.43 4.21, 40.53 10.37, 50.3 21.91 C60.07 33.45, 57.96 61.83, 59.55 70.01 M-0.06 0.11 C8.89 4.19, 42.7 11.08, 52.46 22.95 C62.22 34.83, 57.25 63.69, 58.5 71.36" stroke="#000000" stroke-width="1" fill="none"></path></g><g transform="translate(10.062323286896572 9.887381784403715) rotate(0 30.043654204251993 34.97726846561801)"><path d="M50.28 48.86 C53.68 52.26, 52.76 58.35, 58.5 71.36 M50.28 48.86 C52.9 55.48, 54.74 62.08, 58.5 71.36" stroke="#000000" stroke-width="1" fill="none"></path></g><g transform="translate(10.062323286896572 9.887381784403715) rotate(0 30.043654204251993 34.97726846561801)"><path d="M66.67 48.84 C66.26 52.37, 61.53 58.47, 58.5 71.36 M66.67 48.84 C64.29 55.61, 61.13 62.21, 58.5 71.36" stroke="#000000" stroke-width="1" fill="none"></path></g></g><mask id="mask-CzY3RU3KDQFXo8UbenY3W"><rect x="0" y="0" fill="#fff" width="170.14963169540056" height="179.8419187156397"></rect><rect x="21.992610434694825" y="22.735308621851345" fill="#000" width="78.86393737792969" height="20" opacity="1"></rect></mask><g transform="translate(21.992610434694825 22.735308621851345) rotate(0 17.812752304694754 22.888632471990547)"><text x="39.431968688964844" y="0" font-family="Virgil, Segoe UI Emoji" font-size="16px" fill="#000000" text-anchor="middle" style="white-space: pre;" direction="ltr" dominant-baseline="text-before-edge">Click here!</text></g>
+            </svg>
+        </div>
+        <button type="submit" class="relative flex w-full items-center justify-center rounded-md border border-transparent bg-blue-600 px-8 py-3 text-base font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+            <div class="absolute left-0 pl-4">
+                <svg id="spinner" class="htmx-indicator animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+            </div>
+            Add to Cart
+        </button>
+    </div>
+
+</form>
+{{ end }}
