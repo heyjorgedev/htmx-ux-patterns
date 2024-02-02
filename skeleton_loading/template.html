@@ -23,14 +23,14 @@
 </html>
 
 {{ define "placeholder" }}
-<div class="overflow-hidden rounded-lg bg-white px-4 py-5 sm:p-6 border" hx-get="{{ . }}" hx-trigger="load" hx-swap="outerHTML">
+<div class="h-28 overflow-hidden rounded-lg bg-white px-4 py-5 sm:p-6 border" hx-get="{{ . }}" hx-trigger="load" hx-swap="outerHTML">
     <div class="animate-pulse truncate text-sm font-medium text-gray-500 w-64 h-4 bg-gray-200 rounded-xl"></div>
     <div class="animate-pulse mt-1 bg-gray-200 h-9 w-32 rounded-full"></div>
 </div>
 {{ end }}
 
 {{ define "stats" }}
-<div class="overflow-hidden rounded-lg bg-white px-4 py-5 sm:p-6 border">
+<div class="h-28 overflow-hidden rounded-lg bg-white px-4 py-5 sm:p-6 border">
     <dt class="truncate text-sm font-medium text-gray-500">{{ .Label }}</dt>
     <dd class="mt-1 text-3xl font-semibold tracking-tight text-gray-900">{{ .Value }}</dd>
 </div>
