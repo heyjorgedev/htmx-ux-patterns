@@ -8,13 +8,16 @@
     <script src="https://unpkg.com/htmx.org@1.9.10" integrity="sha384-D1Kt99CQMDuVetoL1lrYwg5t+9QdHe7NLX/SoJYkXDFfX37iInKRy5xLSi8nO7UC" crossorigin="anonymous"></script>
 </head>
 <body class="h-full flex flex-col justify-center">
-<div class="w-full mx-auto max-w-7xl p-4">
+<div class="w-full mx-auto max-w-7xl p-4 grid gap-5">
     <h3 class="text-base font-semibold leading-6 text-gray-900">Last 30 days</h3>
-    <dl class="mt-5 grid grid-cols-1 gap-5 sm:grid-cols-3">
+    <dl class="grid grid-cols-1 gap-5 sm:grid-cols-3">
         {{ template "placeholder" "/skeleton/stats/subscribers" }}
         {{ template "placeholder" "/skeleton/stats/open-rate" }}
         {{ template "placeholder" "/skeleton/stats/average-click" }}
     </dl>
+    <div class="text-center">
+        <a href="https://github.com/heyjorgedev/htmx-ux-patterns/tree/main/skeleton_loading" target="_blank" class="text-blue-500 text-xs hover:underline">View on GitHub</a>
+    </div>
 </div>
 </body>
 </html>
