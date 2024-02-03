@@ -28,7 +28,9 @@ type Page struct {
 
 func HandleHomepage(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "text/html; charset=utf-8")
-	t.Execute(w, Page{CartItems: currentItems})
+	t.Execute(w, Page{
+		CartItems: currentItems,
+	})
 }
 
 func HandleAddToCart(w http.ResponseWriter, r *http.Request) {
