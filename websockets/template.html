@@ -16,8 +16,9 @@
 </head>
 <body class="min-h-full flex flex-col justify-center">
 <div class="w-full mx-auto max-w-xl lg:max-w-4xl px-4 py-12 grid gap-20">
-    <div>
+    <div class="space-y-2">
         <h1 class="text-center text-3xl font-medium text-gray-300">Click to vote in real-time</h1>
+        {{ template "connected-clients" "-" }}
     </div>
     <div hx-ext="ws" ws-connect="/websockets/feed" class="grid grid-cols-2 lg:grid-cols-3 gap-12">
         {{ template "exploding-head-emoji" .ExplodingHeadEmojiVotes }}
@@ -30,6 +31,10 @@
 </div>
 </body>
 </html>
+
+{{ define "connected-clients" }}
+    <p id="connected-clients" class="text-center font-medium text-gray-300">{{ . }} client(s) connected</p>
+{{ end }}
 
 {{ define "exploding-head-emoji" }}
 <button

@@ -45,6 +45,21 @@ func HandleHomepage(w http.ResponseWriter, r *http.Request) {
 }
 
 func HandleWebsocket() http.Handler {
+	connectionsChanged := make(chan struct{})
+	go func() {
+		for {
+			select {
+			case <-connectionsChanged:
+				m.Lock()
+				buff := bytes.NewBuffer(nil)
+				t.ExecuteTemplate(buff, "connected-clients", len(conns))
+				for conn := range conns {
+					conn.Write(buff.Bytes())
+				}
+				m.Unlock()
+			}
+		}
+	}()
 	return websocket.Handler(func(ws *websocket.Conn) {
 		// conns[ws] is not concurrent-safe so we need to lock it before reading or writing
 		m.Lock()
@@ -52,11 +67,14 @@ func HandleWebsocket() http.Handler {
 		// after the change we can unlock it
 		m.Unlock()
 
+		connectionsChanged <- struct{}{}
+
 		// defer is used to ensure that the connection is removed from the map when the function returns
 		defer func() {
 			m.Lock()
 			delete(conns, ws)
 			m.Unlock()
+			connectionsChanged <- struct{}{}
 		}()
 
 		for {
