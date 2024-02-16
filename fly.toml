@@ -1,0 +1,25 @@
+# fly.toml app configuration file generated for htmx-ux-patterns on 2024-02-02T01:23:05Z
+#
+# See https://fly.io/docs/reference/configuration/ for information about how to use this file.
+#
+
+app = 'htmx-ux-patterns'
+primary_region = 'lhr'
+
+[env]
+  LISTEN_ADDR = ":8080"
+
+[build]
+
+[http_service]
+  internal_port = 8080
+  force_https = true
+  auto_stop_machines = true
+  auto_start_machines = true
+  min_machines_running = 0
+  processes = ['app']
+
+[[vm]]
+cpu_kind = 'shared'
+cpus = 1
+memory_mb = 256
