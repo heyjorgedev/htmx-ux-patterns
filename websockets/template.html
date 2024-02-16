@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html class="h-full bg-gray-50">
+<head>
+    <title>HTMX - Skeleton Loading</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta property="og:title" content="HTMX - Emoji Websockets" />
+    <meta property="og:type" content="image/png" />
+    <meta property="og:url" content="https://htmx.heyjorge.dev/skeleton" />
+    <meta property="og:image" content="https://htmx.heyjorge.dev/public/img/og_emoji_websockets.png" />
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/htmx.org@1.9.10" integrity="sha384-D1Kt99CQMDuVetoL1lrYwg5t+9QdHe7NLX/SoJYkXDFfX37iInKRy5xLSi8nO7UC" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/htmx.org/dist/ext/ws.js"></script>
+</head>
+<body class="min-h-full flex flex-col justify-center">
+<div class="w-full mx-auto max-w-xl lg:max-w-4xl px-4 py-12 grid gap-20">
+    <div>
+        <h1 class="text-center text-3xl font-medium text-gray-300">Click to vote in real-time</h1>
+    </div>
+    <div hx-ext="ws" ws-connect="/websockets/feed" class="grid grid-cols-2 lg:grid-cols-3 gap-12">
+        {{ template "exploding-head-emoji" .ExplodingHeadEmojiVotes }}
+        {{ template "fire-emoji" .FireEmojiVotes }}
+        {{ template "cool-emoji" .CoolEmojiVotes }}
+    </div>
+    <div class="text-center">
+        <a href="https://github.com/heyjorgedev/htmx-ux-patterns/tree/main/websockets" target="_blank" class="text-blue-500 text-xs hover:underline">View on GitHub</a>
+    </div>
+</div>
+</body>
+</html>
+
+{{ define "exploding-head-emoji" }}
+<button
+    id="exploding-head-emoji"
+    class="aspect-square bg-white shadow-xl rounded-full flex flex-col items-center justify-center space-y-4 text-xl font-bold"
+    ws-send
+    name="vote"
+    value="exploding"
+>
+    <span class="text-7xl">🤯</span>
+    <span>{{ . }}</span>
+</button>
+{{ end }}
+
+{{ define "fire-emoji" }}
+<button
+    id="fire-emoji"
+    class="aspect-square bg-white shadow-xl rounded-full flex flex-col items-center justify-center space-y-4 text-xl font-bold"
+    ws-send
+    name="vote"
+    value="fire"
+>
+    <span class="text-7xl">🔥</span>
+    <span>{{ . }}</span>
+</button>
+{{ end }}
+
+{{ define "cool-emoji" }}
+<button
+    id="cool-emoji"
+    class="aspect-square bg-white shadow-xl rounded-full flex flex-col items-center justify-center space-y-4 text-xl font-bold"
+    ws-send
+    name="vote"
+    value="cool"
+>
+    <span class="text-7xl">😎</span>
+    <span>{{ . }}</span>
+</button>
+{{ end }}

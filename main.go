@@ -7,6 +7,7 @@ import (
 	"github.com/heyjorgedev/htmx-ux-patterns/skeleton_loading"
 	"github.com/heyjorgedev/htmx-ux-patterns/websockets"
 	"net/http"
+	"os"
 )
 
 func main() {
@@ -23,5 +24,10 @@ func main() {
 	r.Route("/skeleton", skeleton_loading.RegisterRoutes)
 	r.Route("/websockets", websockets.RegisterRoutes)
 
-	http.ListenAndServe("127.0.0.1:8080", r)
+	listenAddr := os.Getenv("LISTEN_ADDR")
+	if listenAddr == "" {
+		listenAddr = "127.0.0.1:8080"
+	}
+
+	http.ListenAndServe(listenAddr, r)
 }
