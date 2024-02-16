@@ -5,6 +5,7 @@ import (
 	"github.com/go-chi/chi/v5/middleware"
 	"github.com/heyjorgedev/htmx-ux-patterns/ecommerce_oob"
 	"github.com/heyjorgedev/htmx-ux-patterns/skeleton_loading"
+	"github.com/heyjorgedev/htmx-ux-patterns/websockets"
 	"net/http"
 )
 
@@ -20,6 +21,7 @@ func main() {
 
 	r.Route("/ecommerce-oob", ecommerce_oob.RegisterRoutes)
 	r.Route("/skeleton", skeleton_loading.RegisterRoutes)
+	r.Route("/websockets", websockets.RegisterRoutes)
 
-	http.ListenAndServe(":8080", r)
+	http.ListenAndServe("127.0.0.1:8080", r)
 }
